@@ -1,3 +1,5 @@
+# MEMO: {} は {{}} の形にエスケープする必要がある
+# 参考資料: https://github.com/hwchase17/langchain/issues/2212
 promptTemplate = """
 以下の入力内容を以下の要素に従って要約し、指定したJSONフォーマットだけを出力してください。
 出力するテキストはJSONフォーマットだけとし、注釈や説明等の余計な文字列は一切出力しないでください。
@@ -26,13 +28,13 @@ promptTemplate = """
   - summary
 
 ## フォーマット
-{
-  "is_valid": 要約成功フラグ,
-  "start_date_time": 開始日時,
-  "end_date_time": 終了日時,
-  "title": 表題,
-  "summary:" サマリ
-}
+{{
+  \"is_valid\": 要約成功フラグ,
+  \"start_date_time\": 開始日時,
+  \"end_date_time\": 終了日時,
+  \"title\": 表題,
+  \"summary:\" サマリ
+}}
 
 ## 入力
 {input}

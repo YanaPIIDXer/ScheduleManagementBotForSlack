@@ -22,4 +22,4 @@ Resources:
         Variables:
           OPENAI_API_KEY: Dummy
           SLACK_BOT_TOKEN: Dummy
-          
+          SLACK_SIGNING_SECRET: Dummy

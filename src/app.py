@@ -31,7 +31,7 @@ logging.basicConfig(format="%(asctime)s %(message)s", level=logging.DEBUG)
 
 def handler(event, context):
     # HACK: リトライは弾く
-    if event["headers"]["X-Slack-Retry-Num"] != None:
+    if "X-Slack-Retry-Num" in event["headers"]:
         return {
             "statusCode": 200,
             "body": json.dumps("OK"),

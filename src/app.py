@@ -17,8 +17,8 @@ def think(channel, message, thread_ts, sender, say):
     summarizedJsonText = bot.run({ "input": message })
     summarizedData = json.loads(summarizedJsonText)
     if summarizedData["is_valid"] == False:
-        msg = f"<@{sender}>スケジュールを抽出できませんでした"
-        return say(msg, thread_ts)
+        msg = f"<@{sender}>\nスケジュールを抽出できませんでした"
+        return say(msg, thread_ts=thread_ts)
     
     start_dt = summarizedData["start_date_time"]
     end_dt = summarizedData["end_date_time"]
@@ -26,18 +26,18 @@ def think(channel, message, thread_ts, sender, say):
     summary = summarizedData["summary"]
     # TODO: 実際にGoogleカレンダーに登録する処理の実装
     msg = f"""
-    <@{sender}>
-    以下の内容でカレンダーに登録しました。
-    
-    タイトル:
-    {title}
-    説明:
-    {summary}
-    開始日時:
-    {start_dt}
-    終了日時:
-    {end_dt}
-    """
+<@{sender}>
+以下の内容でカレンダーに登録しました。
+
+タイトル:
+{title}
+説明:
+{summary}
+開始日時:
+{start_dt}
+終了日時:
+{end_dt}
+"""
     say(msg, thread_ts=thread_ts)
 
 # メンション受信イベント
@@ -54,7 +54,7 @@ logging.basicConfig(format="%(asctime)s %(message)s", level=logging.DEBUG)
 
 def handler(event, context):
     # HACK: リトライは弾く
-    if "X-Slack-Retry-Num" in event["headers"] and int(event["headers"]["X-Slack-Retry-Num"]) > 1:
+    if "X-Slack-Retry-Num" in event["headers"] and int(event["headers"]["X-Slack-Retry-Num"]) > 0:
         print("Retry:" + event["headers"]["X-Slack-Retry-Num"])
         return {
             "statusCode": 200,

@@ -2,23 +2,24 @@ import os
 from slack_bolt import App
 from slack_bolt.adapter.aws_lambda import SlackRequestHandler
 import openai
-import json
+import logging
+import re
 
-# openai.api_key = os.environ["OPENAI_API_KEY"]
-# slack_bot_token = os.environ["SLACK_BOT_TOKEN"]
+openai.api_key = os.environ["OPENAI_API_KEY"]
+slack_bot_token = os.environ["SLACK_BOT_TOKEN"]
 
-# slack = App(token=slack_bot_token)
+app = App(token=slack_bot_token, process_before_response=True)
 
-# @slack.event("app_mention")
-# def handle_mention(body, say):
-#   pass
+@app.event("app_mention")
+def handle_mention(event, say, logger):
+    logger.info(event)
+    message = re.sub(r'^<.*>', '', event['text'])   # メンション除去
+    # とりあえずオウム返し
+    say(f"<@{event['user']}>{message}")
 
-# handler = handle_mention
+SlackRequestHandler.clear_all_log_handlers()
+logging.basicConfig(format="%(asctime)s %(message)s", level=logging.DEBUG)
 
 def handler(event, context):
-    return {
-        "statusCode": 200,
-        "body": json.dumps("Hello"),
-    }
-
-handler = handler
+    slack_handler = SlackRequestHandler(app)
+    return slack_handler.handle(event, context)

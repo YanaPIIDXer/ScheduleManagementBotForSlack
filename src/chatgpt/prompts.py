@@ -21,19 +21,20 @@ promptTemplate = """
   - 必須項目
   - 開始日時の判断で「終日」と判断されている場合は、日付を開始日の翌日、時間を00:00として出力する
  -  開始時刻は明示されているが終了時刻の明示が無い場合、ひとまず開始日時の1時間後とする
-- 表題
+- タイトル
   - title
   - 必須項目
-- サマリ
+- 詳細要約
   - summary
+  - 内容を要約して箇条書きにしたもの
 
 ## フォーマット
 {{
-  \"is_valid\": 要約成功フラグ,
-  \"start_date_time\": 開始日時,
-  \"end_date_time\": 終了日時,
-  \"title\": 表題,
-  \"summary:\" サマリ
+  \"is_valid\": 要約成功フラグ(boolean),
+  \"start_date_time\": 開始日時(string),
+  \"end_date_time\": 終了日時(string),
+  \"title\": タイトル(string),
+  \"summary:\" 詳細要約(string)
 }}
 
 ## 入力

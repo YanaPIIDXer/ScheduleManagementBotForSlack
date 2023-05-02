@@ -23,20 +23,20 @@ def think(channel, message, thread_ts, sender, say):
     start_dt = summarizedData["start_date_time"]
     end_dt = summarizedData["end_date_time"]
     title = summarizedData["title"]
-    summary = summarizedData["summary"]
+    summary = summarizedData["summary"].replace("\\n", "\n")
     # TODO: 実際にGoogleカレンダーに登録する処理の実装
     msg = f"""
 <@{sender}>
 以下の内容でカレンダーに登録しました。
 
-タイトル:
+【タイトル】
 {title}
-説明:
-{summary}
-開始日時:
+【開始日時】
 {start_dt}
-終了日時:
+【終了日時】
 {end_dt}
+【説明】
+{summary}
 """
     say(msg, thread_ts=thread_ts)
 

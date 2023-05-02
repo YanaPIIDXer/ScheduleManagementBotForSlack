@@ -14,8 +14,9 @@ app = App(token=slack_bot_token, process_before_response=True)
 def handle_mention(event, say, logger):
     logger.info(event)
     message = re.sub(r'^<.*>', '', event['text'])   # メンション除去
+    thread_ts = event.get("thread_ts", None) or event["ts"]     # スレッド
     # とりあえずオウム返し
-    say(f"<@{event['user']}>{message}")
+    say(f"<@{event['user']}>{message}", thread_ts=thread_ts)
 
 SlackRequestHandler.clear_all_log_handlers()
 logging.basicConfig(format="%(asctime)s %(message)s", level=logging.DEBUG)

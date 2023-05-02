@@ -1,0 +1,10 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "schedule-management-bot"
+resolve_s3 = true
+s3_prefix = "schedule-management-bot"
+region = "ap-northeast-3"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+image_repositories = []

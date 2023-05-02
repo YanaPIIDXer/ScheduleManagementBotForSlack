@@ -18,3 +18,8 @@ Resources:
           Properties:
             Path: /hook
             Method: POST
+      Environment:
+        Variables:
+          OPENAI_API_KEY: Dummy
+          SLACK_BOT_TOKEN: Dummy
+          
